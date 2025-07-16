@@ -1,0 +1,24 @@
+services:
+  newsapi:
+    build:
+      context: ../src/realtime-newsapi
+    container_name: radar-newsapi
+    restart: always
+    ports:
+      - "8080:80"
+
+  postgres:
+    image: postgres
+    container_name: radar-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: radar
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
